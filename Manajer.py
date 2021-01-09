@@ -41,7 +41,7 @@ class Manajer(Toko.Toko):
             conn.commit()
             data = conn.cursor().execute("select harga from daftar_barang where nama = ?", (barang, ))
             ganti_harga = data.fetchone()[0]
-            conn.cursor().execute("update daftar_barang set harga = ?", (ganti_harga))
+            conn.cursor().execute("update daftar_barang set harga = ? where nama = ?", (ganti_harga, barang))
             conn.commit()
             print("barang sudah tersedia, program akan mengganti harga dan menambah jumlah stok")
 
@@ -74,3 +74,10 @@ class Manajer(Toko.Toko):
             conn.cursor().execute("delete from daftar_barang where id_barang = ?", (id, ))
             conn.commit()
             print("Barang berhasil dihapus")
+
+    def riwayat_transaksi(self):
+        cursor = conn.cursor().execute("select * from transaksi")
+        print("=" * 20 + "RIWAYAT TRANSAKSI" + "=" * 20)
+        print("|id_transaksi|\t|nama|\t|id_barang|\t|jumlah|\t|total|\t|tanggal transaksi|")
+        for row in cursor:
+            print(f"|{row[0]}|\t\t\t|{row[1]}|  \t|{row[2]}|\t\t|{row[3]}|\t\t\t|{row[4]}|\t|{row[5]}|")

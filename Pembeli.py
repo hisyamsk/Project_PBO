@@ -59,4 +59,11 @@ class Pembeli(Toko.Toko):
         if uang < self.total:
             print("uang tidak mecukupi")
         else:
+            for barang in self.__keranjang:
+                last_id = conn.cursor().execute("select max(id_transaksi) from transaksi")
+                new_id = last_id.fetchone()[0] + 1
+                getId_barang = conn.cursor().execute("select id_barang from daftar_barang where nama = ?", (barang[0], ))
+                id_barang = getId_barang.fetchone()[0]
+                conn.execute("insert into transaksi values (?, ?, ?, ?, ?, ?)", (new_id, self._nama, id_barang, barang[1], barang[2], Toko.Toko.current_date()))
+                conn.commit()
             print(f"Pembelian atas nama {self._nama}, berhasil.\nKembalian : {uang-self.total}")

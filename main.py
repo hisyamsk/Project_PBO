@@ -45,13 +45,13 @@ for manajer in daftar_manajer:
 menu = int(input("1. Pembeli\n2. Manajer\nSilahkan pilih nomor user: "))
 if menu == 1:
     pembeli = Pembeli.Pembeli(input("Silahkan masukkan nama anda: "))
-    print("""Fitur
-     1. Tampilkan Menu
-     2. Tambahkan ke keranjang
-     3. Total belanja
-     4. Bayar
-     5. Exit""")
     while True:
+        print("""Fitur
+1. Tampilkan Menu
+2. Tambahkan ke keranjang
+3. Total belanja
+4. Bayar
+5. Exit""")
         menu_pembeli = int(input("Masukkan pilihan nomor: "))
         if menu_pembeli == 1:
             pembeli.tampilkan_menu()
@@ -80,7 +80,8 @@ elif menu == 2:
  2. Hapus Item
  3. Ganti Diskon
  4. Tampilkan Menu
- 5. Exit
+ 5. Riwayat Transaksi
+ 6. Exit
  Pilih nomor: """))
             if menu_manajer == 1:
                 manajer.tambah_item(input("masukkan nama barang: "), int(input("masukkan harga: ")), int(input("masukkan jumlah: ")))
@@ -99,6 +100,8 @@ Pilih no: """))
                 manajer.ganti_diskon(int(input("masukkan jumlah diskon (dalam %): ")))
             elif menu_manajer == 4:
                 manajer.tampilkan_menu()
+            elif menu_manajer == 5:
+                manajer.riwayat_transaksi()
             else:
                 logged = False
                 break
